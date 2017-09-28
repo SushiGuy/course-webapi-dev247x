@@ -1,0 +1,76 @@
+1. Open WebServer folder with Visual Studio Code
+2. Click View - Debug
+3. Click green play button
+4. Open Postman
+
+-------------
+Task 1 HTTP GET All
+1. In GET box paste http://localhost:5000/api/rockets
+2. Click Send
+3. You should see four rockets returned in JSON format
+
+-------------
+Task 2 HTTP GET Single Record
+1. In new Postman tab type http://localhost:5000/api/rockets/2
+2. Click Send
+3. You should see a single rocket returned "Jupiter"
+4. Note Status of "200 OK"
+BAD SINGLE
+5. Change URL to http://localhost:5000/api/rockets/101
+6. Note Status of "404 Not Found"
+
+-------------
+Task 3 HTTP POST
+HTTP POST Request
+The purpose of a HTTP POST request is to send the data to the server and ask the server to create a new object with the data.
+1. With Postman still open, select POST from the dropdown list. Edit the target URL as http://localhost:5000/api/rockets.
+2. Click the Body link and choose "raw" radio and at end of row change Text dropdown to JSON (application/json).
+The POST request needs data in the body, so we use the JSON data below:
+{
+  "builder": "NASA",
+  "target": "Pluto",
+  "speed": 100
+}
+3. Notice that we omit the ID from the JSON object, because the service will generate the ID for a newly created object.
+4. Click the Send button. You will see the status code is 201 Created. As we learned from the course, the 2XX code means your request is successful.
+5. Postman automatically refreshes the lower body pane and you will see the newly created object that was sent back to you with a new ID, as shown here:
+{
+  "id": 4,
+  "builder": "NASA",
+  "target": "Pluto",
+  "speed": 100
+}
+6. Click the Headers link of the response, you will see a header line Location -> api/rockets/4, this is the URL of the newly created resource on the server.
+
+-------------
+Task 4 HTTP PUT
+The purpose of PUT request is to replace an existing resource on the server.
+1. Select PUT from the dropdown list and edit the URL as http://localhost:5000/api/rockets/0. Notice the target of the URL contains the ID part (/0) of an existing record.
+2. Similar to the POST request, configure the body as raw and JSON (application/json), and set the payload data as:
+{
+  "id": 0,
+  "builder": "Microsoft",
+  "target": "Proxima Centauri",
+  "speed": 1000
+}
+3. Click the Send button, you will see the status code 200 OK.
+Unlike the POST request, you won't get the updated object back.
+But if you send an HTTP GET request to the same URL, you will get the updated object.
+Just select GET from the dropdown list and click Send.
+NOTE: if you send a PUT request to a URL which contains a nonexistent ID, you will get a 404 Not Found status code.
+
+-------------
+Task 5 HTTP DELETE
+In this task, we will use the DELETE request to remove an item.
+1. Select DELETE from the dropdown list.
+2. Edit the URL as http://localhost:5000/api/rockets/4 to delete the item with an ID of 4. Note that The DELETE request does not have body.
+3. Click the Send button, you will see the status code 200 OK.
+If you hit Send again, you will get a 404 Not Found as object was removed.
+If you change the request type to GET and send to the same URL, you will get the status code 404 Not Found since the resource is already removed.
+4. Remove the ID and slash from the URL so you have http://localhost:5000/api/rockets in the URL box.
+5. Click Send again and verify that the item with ID 4 is not listed in the complete items list returned.
+
+-------------
+Course Link reference:
+Course >  Module 2 | REST and HTTP >  Lab01 Use Postman Create HTTP Requests >  Task 1 HTTP GET All
+https://courses.edx.org/courses/course-v1:Microsoft+DEV247x+2T2017/courseware/3b806719ac394d8cb7dfced2e6a53621/b8e05fe00b814a18bf5b3d1c4ead5dae/?child=first
